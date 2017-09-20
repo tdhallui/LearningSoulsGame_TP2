@@ -43,7 +43,7 @@ public class DiceTest {
     @Test
     public void testAttributes() {
         try {
-            Class <?> c = Class.forName("lsg.helpers.Dice");
+            Class<?> c = Class.forName("lsg.helpers.Dice");
             Field f1 = c.getDeclaredField("random");
             Field f2 = c.getDeclaredField("faces");
 
@@ -57,7 +57,7 @@ public class DiceTest {
     @Test
     public void testAttributeTypes() {
         try {
-            Class <?> c = Class.forName("lsg.helpers.Dice");
+            Class<?> c = Class.forName("lsg.helpers.Dice");
             Field f1 = c.getDeclaredField("random");
             Field f2 = c.getDeclaredField("faces");
 
@@ -90,6 +90,44 @@ public class DiceTest {
             Assert.fail("should have a class called lsg.helpers.Dice");
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a constructor with one parameter for lsg.helpers.Dice class");
+        }
+    }
+
+    @Test
+    public void existDiceRoll() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.helpers.Dice");
+            Method ts = c.getDeclaredMethod("roll");
+
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.helpers.Dice");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a method called roll in Dice class");
+        }
+    }
+
+    @Test
+    public void testDiceRoll() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.helpers.Dice");
+            Constructor<?> constructor = c.getDeclaredConstructor(int.class);
+            Object o = constructor.newInstance(6);
+            Method ts = c.getDeclaredMethod("roll");
+            int value = (int) (ts.invoke(o));
+
+            Assert.assertEquals(value, 4);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.helpers.Dice");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a method called roll in Dice class");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
