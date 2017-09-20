@@ -69,4 +69,28 @@ public class DiceTest {
             Assert.fail("should have some missed attributes (random or faces)");
         }
     }
+
+    @Nullable
+    private Constructor<?> searchDefaultConstructor(Class<?> c) {
+        for (Constructor<?> constructor : c.getConstructors()) {
+            if (constructor.getParameterCount() == 1) {
+                return constructor;
+            }
+        }
+        return null;
+    }
+
+    @Test
+    public void testDiceConstructor() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.helpers.Dice");
+            Constructor<?> constructor = c.getDeclaredConstructor(int.class);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.helpers.Dice");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a constructor with one parameter for lsg.helpers.Dice class");
+        }
+    }
+
 }
