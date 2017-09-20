@@ -73,7 +73,7 @@ public class DiceTest {
     @Nullable
     private Constructor<?> searchDefaultConstructor(Class<?> c) {
         for (Constructor<?> constructor : c.getConstructors()) {
-            if (constructor.getParameterCount() == 1) {
+            if (constructor.getParameterCount() == 0) {
                 return constructor;
             }
         }
