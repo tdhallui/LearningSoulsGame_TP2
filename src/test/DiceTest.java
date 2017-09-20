@@ -131,4 +131,40 @@ public class DiceTest {
         }
     }
 
+    @Test
+    public void testDiceRollMinMax() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.helpers.Dice");
+            Constructor<?> constructor = c.getDeclaredConstructor(int.class);
+            Object o = constructor.newInstance(50);
+            Method ts = c.getDeclaredMethod("roll");
+            int min = 100;
+            int max = -1;
+
+            for (int i = 0; i < 500; i++) {
+                int value = (int) (ts.invoke(o));
+
+                if (value < min) {
+                    min = value;
+                }
+                if (value > max) {
+                    max = value;
+                }
+            }
+
+            Assert.assertTrue("wrong min/max values", min >= 0 && max < 50);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.helpers.Dice");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a method called roll in Dice class");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
