@@ -99,4 +99,22 @@ public class WeaponTest {
             Assert.fail("should have a constructor with five parameters for lsg.weapons.Weapon class");
         }
     }
+
+    @Test
+    public void existGetters() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.weapons.Weapon");
+            Method g1 = c.getDeclaredMethod("getName");
+            Method g2 = c.getDeclaredMethod("getMinDamage");
+            Method g3 = c.getDeclaredMethod("getMaxDamage");
+            Method g4 = c.getDeclaredMethod("getStamCost");
+            Method g5 = c.getDeclaredMethod("getDurability");
+
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.characters.Monster");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have getters for all attributes in Weapon class");
+        }
+    }
 }
