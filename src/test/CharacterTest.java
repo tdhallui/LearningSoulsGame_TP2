@@ -151,8 +151,13 @@ public class CharacterTest {
             try {
                 Field f = c.getDeclaredField("INSTANCES_COUNT");
                 String str = ((String)(ts.invoke(o))).replaceAll("Monster_[0-9]\t", "");
+                String str2 = ((String)(ts.invoke(o))).replaceAll("Monster_[0-9]", "");
 
-                Assert.assertEquals("[ Monster ]\tLIFE: 10\tSTAMINA: 10\t(ALIVE)", str);
+                if (str.equals("[ Monster ]\tLIFE: 10\tSTAMINA: 10\t(ALIVE)")) {
+                    Assert.assertEquals("[ Monster ]\tLIFE: 10\tSTAMINA: 10\t(ALIVE)", str);
+                } else {
+                    Assert.assertEquals("[ Monster ]                      LIFE:   10      STAMINA:   10     (ALIVE)", str2);
+                }
             } catch (NoSuchFieldException e) {
                 Assert.assertEquals("[ Monster ]\tMonster\tLIFE: 10\tSTAMINA: 10\t(ALIVE)", (String)(ts.invoke(o)));
             }
@@ -180,7 +185,11 @@ public class CharacterTest {
             try {
                 Method m = c.getMethod("isAlive");
 
-                Assert.assertEquals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50\t(ALIVE)", (String)(ts.invoke(o)));
+                if (((String)(ts.invoke(o))).equals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50\t(ALIVE)")) {
+                    Assert.assertEquals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50\t(ALIVE)", (String) (ts.invoke(o)));
+                } else {
+                    Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)", (String) (ts.invoke(o)));
+                }
             } catch (NoSuchMethodException e) {
                 Assert.assertEquals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50", (String)(ts.invoke(o)));
             }
