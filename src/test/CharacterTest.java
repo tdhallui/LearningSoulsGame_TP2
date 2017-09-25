@@ -1,6 +1,7 @@
 package test;
 
 import com.sun.istack.internal.Nullable;
+import lsg.weapons.Weapon;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -56,9 +57,9 @@ public class CharacterTest {
     @Test
     public void existInheritance() {
         try {
-            Class <?> c1 = Class.forName("lsg.characters.Character");
-            Class <?> c2 = Class.forName("lsg.characters.Hero");
-            Class <?> c3 = Class.forName("lsg.characters.Monster");
+            Class<?> c1 = Class.forName("lsg.characters.Character");
+            Class<?> c2 = Class.forName("lsg.characters.Hero");
+            Class<?> c3 = Class.forName("lsg.characters.Monster");
 
             Assert.assertTrue("Hero should be a superclass of Character", c1.isAssignableFrom(c2));
             Assert.assertTrue("Monster should be a superclass of Character", c1.isAssignableFrom(c3));
@@ -70,7 +71,7 @@ public class CharacterTest {
     @Test
     public void testAttributes() {
         try {
-            Class <?> c = Class.forName("lsg.characters.Character");
+            Class<?> c = Class.forName("lsg.characters.Character");
             Field f1 = c.getDeclaredField("name");
             Field f2 = c.getDeclaredField("life");
             Field f3 = c.getDeclaredField("maxLife");
@@ -155,8 +156,8 @@ public class CharacterTest {
 
             try {
                 Field f = c.getDeclaredField("INSTANCES_COUNT");
-                String str = ((String)(ts.invoke(o))).replaceAll("Monster_[0-9]\t", "");
-                String str2 = ((String)(ts.invoke(o))).replaceAll("Monster_[0-9]", "");
+                String str = ((String) (ts.invoke(o))).replaceAll("Monster_[0-9]\t", "");
+                String str2 = ((String) (ts.invoke(o))).replaceAll("Monster_[0-9]", "");
 
                 if (str.equals("[ Monster ]\tLIFE: 10\tSTAMINA: 10\t(ALIVE)")) {
                     Assert.assertEquals("[ Monster ]\tLIFE: 10\tSTAMINA: 10\t(ALIVE)", str);
@@ -164,7 +165,7 @@ public class CharacterTest {
                     Assert.assertEquals("[ Monster ]                      LIFE:   10      STAMINA:   10     (ALIVE)", str2);
                 }
             } catch (NoSuchFieldException e) {
-                Assert.assertEquals("[ Monster ]\tMonster\tLIFE: 10\tSTAMINA: 10\t(ALIVE)", (String)(ts.invoke(o)));
+                Assert.assertEquals("[ Monster ]\tMonster\tLIFE: 10\tSTAMINA: 10\t(ALIVE)", (String) (ts.invoke(o)));
             }
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.characters.Monster");
@@ -190,13 +191,13 @@ public class CharacterTest {
             try {
                 Method m = c.getMethod("isAlive");
 
-                if (((String)(ts.invoke(o))).equals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50\t(ALIVE)")) {
+                if (((String) (ts.invoke(o))).equals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50\t(ALIVE)")) {
                     Assert.assertEquals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50\t(ALIVE)", (String) (ts.invoke(o)));
                 } else {
                     Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)", (String) (ts.invoke(o)));
                 }
             } catch (NoSuchMethodException e) {
-                Assert.assertEquals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50", (String)(ts.invoke(o)));
+                Assert.assertEquals("[ Hero ]\tGregooninator\tLIFE: 100\tSTAMINA: 50", (String) (ts.invoke(o)));
             }
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.characters.Hero");
@@ -214,7 +215,7 @@ public class CharacterTest {
     @Test
     public void testDiceAttribute() {
         try {
-            Class <?> c = Class.forName("lsg.characters.Character");
+            Class<?> c = Class.forName("lsg.characters.Character");
             Field f = c.getDeclaredField("dice");
 
             Assert.assertEquals(f.getModifiers(), Modifier.PRIVATE);
@@ -225,15 +226,49 @@ public class CharacterTest {
 
             Assert.assertEquals(f.get(o).getClass().getSimpleName(), "Dice");
 
-            Class <?> dc = Class.forName("lsg.helpers.Dice");
+            Class<?> dc = Class.forName("lsg.helpers.Dice");
             Field ff = dc.getDeclaredField("faces");
-            Assert.assertEquals((int)(ff.get(f.get(o))), 101);
+            Assert.assertEquals((int) (ff.get(f.get(o))), 101);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called Character");
         } catch (NoSuchFieldException e) {
             Assert.fail("should have an attribute called dice");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testAttackWith() {
+        try {
+            Class<?> c = Class.forName("lsg.characters.Character");
+            Method m = c.getDeclaredMethod("attackWith", Weapon.class);
+
+            m.setAccessible(true);
+
+            Assert.assertEquals(m.getModifiers(), Modifier.PRIVATE);
+
+            Class<?> hc = Class.forName("lsg.characters.Hero");
+            Constructor<?> constructor = searchDefaultConstructor(hc);
+            Object o = constructor.newInstance();
+
+            Class<?> c2 = Class.forName("lsg.weapons.Sword");
+            Constructor<?> constructor2 = searchDefaultConstructor(c2);
+            Object o2 = constructor2.newInstance();
+
+            int attack = (int) (m.invoke(o, o2));
+
+            Assert.assertEquals(attack, 9);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called Character");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a method called attackWith");
+        } catch (IllegalAccessException e) {
+            Assert.fail("illegal access to attaclWith method");
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
