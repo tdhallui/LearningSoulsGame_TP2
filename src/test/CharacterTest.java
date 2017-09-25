@@ -8,10 +8,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 public class CharacterTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -81,6 +78,11 @@ public class CharacterTest {
             Field f4 = c.getDeclaredField("stamina");
             Field f5 = c.getDeclaredField("maxStamina");
 
+            Assert.assertEquals(f1.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f2.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f3.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f4.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f5.getModifiers(), Modifier.PRIVATE);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called Monster");
         } catch (NoSuchFieldException e) {
@@ -104,6 +106,8 @@ public class CharacterTest {
         try {
             c = Class.forName("lsg.characters.Character");
             Method ts = c.getDeclaredMethod("toString");
+
+            Assert.assertEquals(ts.getModifiers(), Modifier.PUBLIC);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.characters.Character");
         } catch (NoSuchMethodException e) {
@@ -119,6 +123,7 @@ public class CharacterTest {
             Method ts = c.getDeclaredMethod("toString");
 
             Assert.fail("should have not a method called toString in Monster class");
+            Assert.assertEquals(ts.getModifiers(), Modifier.PUBLIC);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.characters.Monster");
         } catch (NoSuchMethodException e) {
@@ -133,6 +138,7 @@ public class CharacterTest {
             Method ts = c.getDeclaredMethod("toString");
 
             Assert.fail("should have not a method called toString in Hero class");
+            Assert.assertEquals(ts.getModifiers(), Modifier.PUBLIC);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.characters.Hero");
         } catch (NoSuchMethodException e) {
@@ -205,5 +211,4 @@ public class CharacterTest {
             e.printStackTrace();
         }
     }
-
 }

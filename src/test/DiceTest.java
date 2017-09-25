@@ -8,10 +8,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 
@@ -47,6 +44,8 @@ public class DiceTest {
             Field f1 = c.getDeclaredField("random");
             Field f2 = c.getDeclaredField("faces");
 
+            Assert.assertEquals(f1.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f2.getModifiers(), Modifier.PRIVATE);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called Dice");
         } catch (NoSuchFieldException e) {
@@ -86,6 +85,8 @@ public class DiceTest {
         try {
             c = Class.forName("lsg.helpers.Dice");
             Constructor<?> constructor = c.getDeclaredConstructor(int.class);
+
+            Assert.assertEquals(constructor.getModifiers(), Modifier.PUBLIC);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.helpers.Dice");
         } catch (NoSuchMethodException e) {
@@ -100,6 +101,7 @@ public class DiceTest {
             c = Class.forName("lsg.helpers.Dice");
             Method ts = c.getDeclaredMethod("roll");
 
+            Assert.assertEquals(ts.getModifiers(), Modifier.PUBLIC);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.helpers.Dice");
         } catch (NoSuchMethodException e) {
@@ -166,5 +168,4 @@ public class DiceTest {
             e.printStackTrace();
         }
     }
-
 }
