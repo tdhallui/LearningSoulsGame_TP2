@@ -210,4 +210,34 @@ public class CharacterTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testDiceAttribute() {
+        try {
+            Class <?> c = Class.forName("lsg.characters.Character");
+            Field f = c.getDeclaredField("dice");
+
+            Assert.assertEquals(f.getModifiers(), Modifier.PRIVATE);
+
+            Class<?> hc = Class.forName("lsg.characters.Hero");
+            Constructor<?> constructor = searchDefaultConstructor(hc);
+            Object o = constructor.newInstance();
+
+            Assert.assertEquals(f.get(o).getClass().getSimpleName(), "Dice");
+
+            Class <?> dc = Class.forName("lsg.helpers.Dice");
+            Field ff = dc.getDeclaredField("faces");
+            Assert.assertEquals((int)(ff.get(f.get(o))), 101);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called Character");
+        } catch (NoSuchFieldException e) {
+            Assert.fail("should have an attribute called dice");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 }
