@@ -247,10 +247,17 @@ public class CharacterTest {
         try {
             Class<?> c = Class.forName("lsg.characters.Character");
             Method m = c.getDeclaredMethod("attackWith", Weapon.class);
+            boolean found = true;
+
+            try {
+                Method m2 = c.getDeclaredMethod("attack");
+            } catch(NoSuchMethodException e) {
+                found = false;
+            }
 
             m.setAccessible(true);
 
-            Assert.assertEquals(m.getModifiers(), Modifier.PRIVATE);
+            Assert.assertTrue((!found && m.getModifiers() == Modifier.PUBLIC) || m.getModifiers() == Modifier.PRIVATE);
 
             Class<?> hc = Class.forName("lsg.characters.Hero");
             Constructor<?> constructor = searchDefaultConstructor(hc);
