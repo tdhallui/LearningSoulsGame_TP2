@@ -153,7 +153,7 @@ public class WeaponTest {
             Assert.assertEquals(f.getModifiers(), Modifier.PUBLIC);
 
             Constructor<?> constructor = c.getDeclaredConstructor(java.lang.String.class, int.class, int.class, int.class, int.class);
-            Object o = constructor.newInstance("Basic sword", 5, 10, 20, 100);
+            Object o = constructor.newInstance("Basic Sword", 5, 10, 20, 100);
 
             f.invoke(o);
 
@@ -184,7 +184,7 @@ public class WeaponTest {
             Assert.assertEquals(ib.getModifiers(), Modifier.PUBLIC);
 
             Constructor<?> constructor = c.getDeclaredConstructor(java.lang.String.class, int.class, int.class, int.class, int.class);
-            Object o = constructor.newInstance("Basic sword", 5, 10, 20, 1);
+            Object o = constructor.newInstance("Basic Sword", 5, 10, 20, 1);
 
             Assert.assertFalse((boolean)(ib.invoke(o)));
 
@@ -198,6 +198,28 @@ public class WeaponTest {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testWeaponToString() {
+        try {
+            Class<?> c = Class.forName("lsg.weapons.Weapon");
+            Constructor<?> constructor = c.getDeclaredConstructor(java.lang.String.class, int.class, int.class, int.class, int.class);
+            Object o = constructor.newInstance("Basic Sword", 5, 10, 20, 100);
+            Method ts = c.getMethod("toString");
+
+            Assert.assertEquals("Basic Sword (min:5 max:10 stam:20 dur:100)", (String) (ts.invoke(o)));
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.weapons.Weapon");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
