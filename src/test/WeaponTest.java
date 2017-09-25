@@ -8,10 +8,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 public class WeaponTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -115,6 +112,21 @@ public class WeaponTest {
             Assert.fail("should have a class called lsg.characters.Monster");
         } catch (NoSuchMethodException e) {
             Assert.fail("should have getters for all attributes in Weapon class");
+        }
+    }
+
+    @Test
+    public void existSetDurability() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.weapons.Weapon");
+            Method f = c.getDeclaredMethod("setDurability", int.class);
+
+            Assert.assertEquals(f.getModifiers(), Modifier.PRIVATE);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.characters.Monster");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a setter for durability attribute in Weapon class");
         }
     }
 }
