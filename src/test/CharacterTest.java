@@ -39,7 +39,6 @@ public class CharacterTest {
     public void existHeroClass() {
         try {
             Class.forName("lsg.characters.Hero");
-            Class.forName("lsg.characters.Monster");
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called Hero in package lsg.charaters");
         }
