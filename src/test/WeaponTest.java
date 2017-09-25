@@ -121,7 +121,7 @@ public class WeaponTest {
             Assert.assertEquals(g4.getModifiers(), Modifier.PUBLIC);
             Assert.assertEquals(g5.getModifiers(), Modifier.PUBLIC);
         } catch (ClassNotFoundException e) {
-            Assert.fail("should have a class called lsg.characters.Monster");
+            Assert.fail("should have a class called lsg.weapons.Weapon");
         } catch (NoSuchMethodException e) {
             Assert.fail("should have getters for all attributes in Weapon class");
         }
@@ -136,7 +136,7 @@ public class WeaponTest {
 
             Assert.assertEquals(f.getModifiers(), Modifier.PRIVATE);
         } catch (ClassNotFoundException e) {
-            Assert.fail("should have a class called lsg.characters.Monster");
+            Assert.fail("should have a class called lsg.weapons.Weapon");
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a setter for durability attribute in Weapon class");
         }
@@ -161,9 +161,40 @@ public class WeaponTest {
 
             Assert.assertEquals(durability, 99);
         } catch (ClassNotFoundException e) {
-            Assert.fail("should have a class called lsg.characters.Monster");
+            Assert.fail("should have a class called lsg.weapons.Weapon");
         } catch (NoSuchMethodException e) {
-            Assert.fail("should have a setter for durability attribute in Weapon class");
+            Assert.fail("should have a use method in Weapon class");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void existIsBroken() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.weapons.Weapon");
+            Method ib = c.getDeclaredMethod("isBroken");
+            Method u = c.getDeclaredMethod("use");
+
+            Assert.assertEquals(ib.getModifiers(), Modifier.PUBLIC);
+
+            Constructor<?> constructor = c.getDeclaredConstructor(java.lang.String.class, int.class, int.class, int.class, int.class);
+            Object o = constructor.newInstance("Basic sword", 5, 10, 20, 1);
+
+            Assert.assertFalse((boolean)(ib.invoke(o)));
+
+            u.invoke(o);
+
+            Assert.assertTrue((boolean)(ib.invoke(o)));
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.weapons.Weapon");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a isBroken method in Weapon class");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
