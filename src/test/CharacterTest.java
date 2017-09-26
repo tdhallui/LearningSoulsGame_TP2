@@ -351,4 +351,38 @@ public class CharacterTest {
         }
     }
 
+    @Test
+    public void testGetHitWith() {
+        try {
+            Class<?> c = Class.forName("lsg.characters.Character");
+            Method m = c.getDeclaredMethod("getHitWith", int.class);
+            Method mg = c.getDeclaredMethod("getLife");
+
+            Assert.assertEquals(m.getModifiers(), Modifier.PUBLIC);
+            Assert.assertTrue("wrong return type (int) of getHitWith", m.getReturnType() == int.class);
+
+            Class<?> hc = Class.forName("lsg.characters.Hero");
+            Constructor<?> constructor = searchDefaultConstructor(hc);
+            Object o = constructor.newInstance();
+
+            int dmg = (int)(m.invoke(o, 10));
+
+            Assert.assertEquals(dmg, 10);
+
+            int life = (int)(mg.invoke(o));
+
+            Assert.assertEquals(life, 90);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called Character");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a method named getHitWith");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
