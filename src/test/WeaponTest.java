@@ -251,4 +251,30 @@ public class WeaponTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void existShotGunClass() {
+        try {
+            Class <?> c1 = Class.forName("lsg.weapons.Weapon");
+            Class <?> c2 = Class.forName("lsg.weapons.ShotGun");
+            Constructor<?> constructor = searchDefaultConstructor(c2);
+
+            Assert.assertTrue("ShotGun should be a superclass of Weapon", c1.isAssignableFrom(c2));
+
+            Object o = constructor.newInstance();
+            Method ts = c2.getMethod("toString");
+
+            Assert.assertEquals("ShotGun (min:6 max:20 stam:5 dur:100)", (String) (ts.invoke(o)));
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called ShotGun in package lsg.weapons");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
 }
