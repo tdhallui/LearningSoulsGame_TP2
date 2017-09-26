@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -13,17 +14,20 @@ import java.lang.reflect.Method;
 public class LearningSoulsGameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final ByteArrayInputStream in = new ByteArrayInputStream("\n\n\n".getBytes());
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
+        System.setIn(in);
     }
 
     @After
     public void cleanUpStreams() {
         System.setOut(null);
         System.setErr(null);
+        System.setIn(null);
     }
 
     @Test
@@ -83,6 +87,22 @@ public class LearningSoulsGameTest {
                 Assert.assertEquals("", list[38]);
                 Assert.assertEquals("[ Hero ]             Rick                 LIFE:  100      STAMINA:   45     (ALIVE)", list[39]);
                 Assert.assertEquals("[ Monster ]          Zombie               LIFE:    0      STAMINA:   10     (DEAD)", list[40]);
+            }
+            if (list.length > 41) {
+                Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)", list[41]);
+                Assert.assertEquals("[ Monster ]          Monster_6            LIFE:   10      STAMINA:   10     (ALIVE)", list[42]);
+                Assert.assertEquals("", list[43]);
+                Assert.assertEquals("Hit enter key for next move > ", list[44]);
+                Assert.assertEquals("Gregooninator attacks Monster_6 with Basic Sword (ATTACK:9 | DMG : 9)", list[45]);
+                Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   30     (ALIVE)", list[46]);
+                Assert.assertEquals("[ Monster ]          Monster_6            LIFE:    1      STAMINA:   10     (ALIVE)", list[47]);
+                Assert.assertEquals("", list[48]);
+                Assert.assertEquals("Hit enter key for next move > ", list[49]);
+                Assert.assertEquals("Monster_6 attacks Gregooninator with Bloody Claw (ATTACK:146 | DMG : 100)", list[50]);
+                Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:    0      STAMINA:   30     (DEAD)", list[51]);
+                Assert.assertEquals("[ Monster ]          Monster_6            LIFE:    1      STAMINA:    5     (ALIVE)", list[52]);
+                Assert.assertEquals("", list[53]);
+                Assert.assertEquals("--- Monster_6 WINS !!! ---", list[54]);
             }
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called LearningSoulsGame");
