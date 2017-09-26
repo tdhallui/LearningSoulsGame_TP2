@@ -275,11 +275,44 @@ public class CharacterTest {
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a method called attackWith");
         } catch (IllegalAccessException e) {
-            Assert.fail("illegal access to attaclWith method");
+            Assert.fail("illegal access to attackWith method");
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testWeaponAttribute() {
+        try {
+            Class<?> c = Class.forName("lsg.characters.Character");
+            Field f = c.getDeclaredField("weapon");
+
+            Assert.assertEquals(f.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f.getType(), lsg.weapons.Weapon.class);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called Character");
+        } catch (NoSuchFieldException e) {
+            Assert.fail("should have private attribute named weapon");
+        }
+    }
+
+    @Test
+    public void testWeaponGetterSetter() {
+        try {
+            Class<?> c = Class.forName("lsg.characters.Character");
+            Method mg = c.getDeclaredMethod("getWeapon");
+            Method ms = c.getDeclaredMethod("setWeapon", lsg.weapons.Weapon.class);
+
+            Assert.assertEquals(mg.getModifiers(), Modifier.PUBLIC);
+            Assert.assertEquals(ms.getModifiers(), Modifier.PUBLIC);
+            Assert.assertTrue("wrong return type (Weapon) of getWeapon", mg.getReturnType() == lsg.weapons.Weapon.class);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called Character");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have accessors for weapon attribute");
+        }
+    }
+
 }
