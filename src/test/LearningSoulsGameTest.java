@@ -8,8 +8,10 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 public class LearningSoulsGameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -114,4 +116,23 @@ public class LearningSoulsGameTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testAttributes() {
+        try {
+            Class<?> c = Class.forName("lsg.LearningSoulsGame");
+            Field f1 = c.getDeclaredField("hero");
+            Field f2 = c.getDeclaredField("monster");
+
+            Assert.assertEquals(f1.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f2.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f1.getType(), lsg.characters.Hero.class);
+            Assert.assertEquals(f2.getType(), lsg.characters.Monster.class);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called LearningSoulsGame");
+        } catch (NoSuchFieldException e) {
+            Assert.fail("should have some missed attributes (hero and monster)");
+        }
+    }
+
 }
