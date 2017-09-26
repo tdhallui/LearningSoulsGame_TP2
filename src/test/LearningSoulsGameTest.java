@@ -8,10 +8,7 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 
 public class LearningSoulsGameTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -132,6 +129,88 @@ public class LearningSoulsGameTest {
             Assert.fail("should have a class called LearningSoulsGame");
         } catch (NoSuchFieldException e) {
             Assert.fail("should have some missed attributes (hero and monster)");
+        }
+    }
+
+    @Test
+    public void testScannerAttribute() {
+        try {
+            Class<?> c = Class.forName("lsg.LearningSoulsGame");
+            Field f = c.getDeclaredField("scanner");
+
+            Assert.assertEquals(f.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(f.getType(), java.util.Scanner.class);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called LearningSoulsGame");
+        } catch (NoSuchFieldException e) {
+            Assert.fail("should have an attribute named scanner");
+        }
+    }
+
+    @Test
+    public void existMethods() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.LearningSoulsGame");
+            Method m1 = c.getDeclaredMethod("refresh");
+            Method m2 = c.getDeclaredMethod("fight1v1");
+            Method m3 = c.getDeclaredMethod("play_v1");
+            Method m4 = c.getDeclaredMethod("init");
+
+            Assert.assertEquals(m1.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(m2.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(m3.getModifiers(), Modifier.PRIVATE);
+            Assert.assertEquals(m4.getModifiers(), Modifier.PRIVATE);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.LearningSoulsGame");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have methods named init, refresh, fight1v1 and play_v1");
+        }
+    }
+
+    @Test
+    public void testConstructor() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.LearningSoulsGame");
+            Constructor<?> constructor = c.getDeclaredConstructor();
+
+            Assert.assertEquals(constructor.getModifiers(), Modifier.PUBLIC);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.LearningSoulsGame");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a default constructor for lsg.LearningSoulsGame class");
+        }
+    }
+
+    @Test
+    public void testRefresh() {
+        Class<?> c = null;
+        try {
+            c = Class.forName("lsg.LearningSoulsGame");
+            Constructor<?> constructor = c.getDeclaredConstructor();
+            Object o = constructor.newInstance();
+            Method m1 = c.getDeclaredMethod("init");
+            Method m2 = c.getDeclaredMethod("refresh");
+
+            m1.setAccessible(true);
+            m2.setAccessible(true);
+
+            m1.invoke(o);
+            m2.invoke(o);
+
+            Assert.assertEquals(outContent.toString(), "[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)\n" +
+                    "[ Monster ]          Monster_7            LIFE:   10      STAMINA:   10     (ALIVE)\n");
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called lsg.LearningSoulsGame");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a default constructor for lsg.LearningSoulsGame class");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
