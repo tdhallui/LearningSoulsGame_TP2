@@ -248,16 +248,17 @@ public class CharacterTest {
             Class<?> c = Class.forName("lsg.characters.Character");
             Method m = c.getDeclaredMethod("attackWith", Weapon.class);
             boolean found = true;
+            Method m2 = null;
 
             try {
-                Method m2 = c.getDeclaredMethod("attack");
+                m2 = c.getDeclaredMethod("attack");
             } catch(NoSuchMethodException e) {
                 found = false;
             }
 
             m.setAccessible(true);
 
-            Assert.assertTrue((!found && m.getModifiers() == Modifier.PUBLIC) || m.getModifiers() == Modifier.PRIVATE);
+            Assert.assertTrue((!found && m.getModifiers() == Modifier.PUBLIC) || (m2.getModifiers() == Modifier.PUBLIC && m.getModifiers() == Modifier.PRIVATE));
 
             Class<?> hc = Class.forName("lsg.characters.Hero");
             Constructor<?> constructor = searchDefaultConstructor(hc);
@@ -312,6 +313,41 @@ public class CharacterTest {
             Assert.fail("should have a class called Character");
         } catch (NoSuchMethodException e) {
             Assert.fail("should have accessors for weapon attribute");
+        }
+    }
+
+    @Test
+    public void testAttack() {
+        try {
+            Class<?> c = Class.forName("lsg.characters.Character");
+            Method m = c.getDeclaredMethod("attack");
+
+            Assert.assertTrue("wrong return type (int) of attack", m.getReturnType() == int.class);
+
+            Method ms = c.getDeclaredMethod("setWeapon", Weapon.class);
+            Class<?> hc = Class.forName("lsg.characters.Hero");
+            Constructor<?> constructor = searchDefaultConstructor(hc);
+            Object o = constructor.newInstance();
+
+            Class<?> c2 = Class.forName("lsg.weapons.Sword");
+            Constructor<?> constructor2 = searchDefaultConstructor(c2);
+            Object o2 = constructor2.newInstance();
+
+            ms.invoke(o, o2);
+
+            int attack = (int) (m.invoke(o));
+
+            Assert.assertEquals(attack, 9);
+        } catch (ClassNotFoundException e) {
+            Assert.fail("should have a class called Character");
+        } catch (NoSuchMethodException e) {
+            Assert.fail("should have a method called attack");
+        } catch (IllegalAccessException e) {
+            Assert.fail("illegal access to attackWith method");
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
