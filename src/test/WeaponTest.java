@@ -165,11 +165,11 @@ public class WeaponTest {
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a use method in Weapon class");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -196,11 +196,11 @@ public class WeaponTest {
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a isBroken method in Weapon class");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -216,13 +216,13 @@ public class WeaponTest {
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.weapons.Weapon");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Assert.fail("NoSuchMethodException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -242,13 +242,13 @@ public class WeaponTest {
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called Sword in package lsg.weapons");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Assert.fail("NoSuchMethodException");
+        } catch (InvocationTargetException e) {
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -268,13 +268,13 @@ public class WeaponTest {
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called ShotGun in package lsg.weapons");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Assert.fail("NoSuchMethodException");
+        } catch (InvocationTargetException e) {
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -294,13 +294,13 @@ public class WeaponTest {
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called Claw in package lsg.weapons");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Assert.fail("NoSuchMethodException");
+        } catch (InvocationTargetException e) {
+            Assert.fail("InvocationTargetException");
         }
     }
 }

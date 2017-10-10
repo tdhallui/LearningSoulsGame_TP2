@@ -125,11 +125,11 @@ public class DiceTest {
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a method called roll in Dice class");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -161,11 +161,11 @@ public class DiceTest {
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a method called roll in Dice class");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 }

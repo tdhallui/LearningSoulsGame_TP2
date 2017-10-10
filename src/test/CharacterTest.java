@@ -170,13 +170,13 @@ public class CharacterTest {
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.characters.Monster");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Assert.fail("NoSuchMethodException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -202,13 +202,13 @@ public class CharacterTest {
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.characters.Hero");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Assert.fail("NoSuchMethodException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -217,6 +217,8 @@ public class CharacterTest {
         try {
             Class<?> c = Class.forName("lsg.characters.Character");
             Field f = c.getDeclaredField("dice");
+
+            f.setAccessible(true);
 
             Assert.assertEquals(f.getModifiers(), Modifier.PRIVATE);
 
@@ -228,17 +230,20 @@ public class CharacterTest {
 
             Class<?> dc = Class.forName("lsg.helpers.Dice");
             Field ff = dc.getDeclaredField("faces");
+
+            ff.setAccessible(true);
+
             Assert.assertEquals((int) (ff.get(f.get(o))), 101);
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called Character");
         } catch (NoSuchFieldException e) {
             Assert.fail("should have an attribute called dice");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -278,9 +283,9 @@ public class CharacterTest {
         } catch (IllegalAccessException e) {
             Assert.fail("illegal access to attackWith method");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -345,9 +350,9 @@ public class CharacterTest {
         } catch (IllegalAccessException e) {
             Assert.fail("illegal access to attackWith method");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -377,11 +382,11 @@ public class CharacterTest {
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a method named getHitWith");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 

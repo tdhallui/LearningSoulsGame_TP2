@@ -43,8 +43,8 @@ public class LearningSoulsGameTest {
 
             Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)", list[0]);
             Assert.assertEquals("[ Monster ]          Studentatort         LIFE:   10      STAMINA:   10     (ALIVE)", list[1]);
-            Assert.assertEquals("[ Monster ]          Monster_2            LIFE:   10      STAMINA:   10     (ALIVE)", list[2]);
-            Assert.assertEquals("[ Monster ]          Monster_3            LIFE:   10      STAMINA:   10     (ALIVE)", list[3]);
+            Assert.assertEquals("[ Monster ]          Monster_3            LIFE:   10      STAMINA:   10     (ALIVE)", list[2]);
+            Assert.assertEquals("[ Monster ]          Monster_4            LIFE:   10      STAMINA:   10     (ALIVE)", list[3]);
             if (list.length > 4) {
                 Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)", list[4]);
                 Assert.assertEquals("attaque avec Basic Sword (min:5 max:10 stam:20 dur:100) > 9", list[5]);
@@ -62,19 +62,19 @@ public class LearningSoulsGameTest {
                 Assert.assertEquals("attaque avec Basic Sword (min:5 max:10 stam:20 dur:96) > 0", list[17]);
                 Assert.assertEquals("", list[18]);
 
-                Assert.assertEquals("[ Monster ]          Monster_4            LIFE:   10      STAMINA:   10     (ALIVE)", list[19]);
+                Assert.assertEquals("[ Monster ]          Monster_5            LIFE:   10      STAMINA:   10     (ALIVE)", list[19]);
                 Assert.assertEquals("attaque avec Basic Sword (min:5 max:10 stam:20 dur:100) > 5", list[20]);
                 Assert.assertEquals("", list[21]);
-                Assert.assertEquals("[ Monster ]          Monster_4            LIFE:   10      STAMINA:    0     (ALIVE)", list[22]);
+                Assert.assertEquals("[ Monster ]          Monster_5            LIFE:   10      STAMINA:    0     (ALIVE)", list[22]);
                 Assert.assertEquals("attaque avec Basic Sword (min:5 max:10 stam:20 dur:99) > 0", list[23]);
                 Assert.assertEquals("", list[24]);
-                Assert.assertEquals("[ Monster ]          Monster_4            LIFE:   10      STAMINA:    0     (ALIVE)", list[25]);
+                Assert.assertEquals("[ Monster ]          Monster_5            LIFE:   10      STAMINA:    0     (ALIVE)", list[25]);
                 Assert.assertEquals("attaque avec Basic Sword (min:5 max:10 stam:20 dur:98) > 0", list[26]);
                 Assert.assertEquals("", list[27]);
-                Assert.assertEquals("[ Monster ]          Monster_4            LIFE:   10      STAMINA:    0     (ALIVE)", list[28]);
+                Assert.assertEquals("[ Monster ]          Monster_5            LIFE:   10      STAMINA:    0     (ALIVE)", list[28]);
                 Assert.assertEquals("attaque avec Basic Sword (min:5 max:10 stam:20 dur:97) > 0", list[29]);
                 Assert.assertEquals("", list[30]);
-                Assert.assertEquals("[ Monster ]          Monster_4            LIFE:   10      STAMINA:    0     (ALIVE)", list[31]);
+                Assert.assertEquals("[ Monster ]          Monster_5            LIFE:   10      STAMINA:    0     (ALIVE)", list[31]);
                 Assert.assertEquals("attaque avec Basic Sword (min:5 max:10 stam:20 dur:96) > 0", list[32]);
                 Assert.assertEquals("", list[33]);
             }
@@ -89,28 +89,28 @@ public class LearningSoulsGameTest {
             }
             if (list.length > 41) {
                 Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)", list[41]);
-                Assert.assertEquals("[ Monster ]          Monster_6            LIFE:   10      STAMINA:   10     (ALIVE)", list[42]);
+                Assert.assertEquals("[ Monster ]          Monster_7            LIFE:   10      STAMINA:   10     (ALIVE)", list[42]);
                 Assert.assertEquals("", list[43]);
                 Assert.assertEquals("Hit enter key for next move > ", list[44]);
-                Assert.assertEquals("Gregooninator attacks Monster_6 with Basic Sword (ATTACK:9 | DMG : 9)", list[45]);
+                Assert.assertEquals("Gregooninator attacks Monster_7 with Basic Sword (ATTACK:9 | DMG : 9)", list[45]);
                 Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   30     (ALIVE)", list[46]);
-                Assert.assertEquals("[ Monster ]          Monster_6            LIFE:    1      STAMINA:   10     (ALIVE)", list[47]);
+                Assert.assertEquals("[ Monster ]          Monster_7            LIFE:    1      STAMINA:   10     (ALIVE)", list[47]);
                 Assert.assertEquals("", list[48]);
                 Assert.assertEquals("Hit enter key for next move > ", list[49]);
-                Assert.assertEquals("Monster_6 attacks Gregooninator with Bloody Claw (ATTACK:146 | DMG : 100)", list[50]);
+                Assert.assertEquals("Monster_7 attacks Gregooninator with Bloody Claw (ATTACK:146 | DMG : 100)", list[50]);
                 Assert.assertEquals("[ Hero ]             Gregooninator        LIFE:    0      STAMINA:   30     (DEAD)", list[51]);
-                Assert.assertEquals("[ Monster ]          Monster_6            LIFE:    1      STAMINA:    5     (ALIVE)", list[52]);
+                Assert.assertEquals("[ Monster ]          Monster_7            LIFE:    1      STAMINA:    5     (ALIVE)", list[52]);
                 Assert.assertEquals("", list[53]);
-                Assert.assertEquals("--- Monster_6 WINS !!! ---", list[54]);
+                Assert.assertEquals("--- Monster_7 WINS !!! ---", list[54]);
             }
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called LearningSoulsGame");
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a static method called main");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
@@ -200,17 +200,17 @@ public class LearningSoulsGameTest {
             m2.invoke(o);
 
             Assert.assertEquals(outContent.toString(), "[ Hero ]             Gregooninator        LIFE:  100      STAMINA:   50     (ALIVE)\n" +
-                    "[ Monster ]          Monster_7            LIFE:   10      STAMINA:   10     (ALIVE)\n");
+                    "[ Monster ]          Monster_8            LIFE:   10      STAMINA:   10     (ALIVE)\n");
         } catch (ClassNotFoundException e) {
             Assert.fail("should have a class called lsg.LearningSoulsGame");
         } catch (NoSuchMethodException e) {
             Assert.fail("should have a default constructor for lsg.LearningSoulsGame class");
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Assert.fail("IllegalAccessException");
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Assert.fail("InstantiationException");
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Assert.fail("InvocationTargetException");
         }
     }
 
